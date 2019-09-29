@@ -65,6 +65,11 @@ class EventSource extends Stream<Event> {
     await es._start();
     return es;
   }
+  
+  void close() {
+    _readyState = EventSourceReadyState.CLOSED;
+    client.close();
+  }
 
   EventSource._internal(this.url, this.client, this._lastEventId, this.headers) {
     _decoder = new EventSourceDecoder(retryIndicator: _updateRetryDelay);

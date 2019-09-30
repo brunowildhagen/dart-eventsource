@@ -67,8 +67,8 @@ class EventSource extends Stream<Event> {
   }
   
   void close() {
-    _readyState = EventSourceReadyState.CLOSED;
     client.close();
+    onDone()
   }
 
   EventSource._internal(this.url, this.client, this._lastEventId, this.headers) {
